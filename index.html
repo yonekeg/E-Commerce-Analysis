@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Sales Analysis | Yoneke Graham</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fdfaf7 0%, #f5f0ff 40%, #eef5fb 75%, #fdf7f0 100%);
+      min-height: 100vh;
+      color: #1a1a2e;
+    }
+
+    header {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(100,80,160,0.12);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-link {
+      font-size: 0.9rem;
+      color: #2F3C7E;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #1a1a2e;
+    }
+
+    .badge {
+      background: rgba(47,60,126,0.08);
+      color: #2F3C7E;
+      border: 1px solid rgba(47,60,126,0.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .hero {
+      max-width: 900px;
+      margin: 60px auto 40px;
+      padding: 0 40px;
+      text-align: center;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(100,80,160,0.2);
+      border-radius: 30px;
+      padding: 5px 16px;
+      font-size: 0.78rem;
+      color: #2F3C7E;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    h1 span { color: #2F3C7E; font-weight: 400; }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto 36px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 26px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2F3C7E, #7c6fe0);
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-outline {
+      background: rgba(255,255,255,0.8);
+      color: #2F3C7E;
+      border: 1.5px solid rgba(47,60,126,0.3);
+    }
+    .btn-outline:hover { background: #fff; transform: translateY(-1px); }
+
+    .viz-section {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 30px;
+    }
+
+    .viz-card {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(100,80,160,0.12);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 40px rgba(47,60,126,0.08);
+    }
+
+    .viz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .viz-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #1a1a2e;
+    }
+
+    .viz-link {
+      font-size: 0.82rem;
+      color: #2F3C7E;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .viz-link:hover { text-decoration: underline; }
+
+    .tableau-container {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .highlights {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .highlight-card {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(100,80,160,0.12);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 20px rgba(47,60,126,0.06);
+    }
+
+    .highlight-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .highlight-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .highlight-card p {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px 40px;
+      font-size: 0.82rem;
+      color: #999;
+    }
+    footer a { color: #2F3C7E; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="back-link" href="https://yonekeg.github.io">&#8592; Portfolio</a>
+    <span class="header-title">Yoneke Graham</span>
+    <span class="badge">Data Analyst</span>
+  </header>
+
+  <section class="hero">
+    <div class="tag-row">
+      <span class="tag">Tableau</span>
+      <span class="tag">E-Commerce</span>
+      <span class="tag">Sales Analytics</span>
+      <span class="tag">Python</span>
+      <span class="tag">SQL</span>
+    </div>
+    <h1>E-Commerce <span>Sales Analysis</span></h1>
+    <p class="subtitle">
+      An end-to-end analysis of UK-based e-commerce transactions — exploring revenue trends, 
+      customer behavior, and product performance through interactive data storytelling.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://public.tableau.com/shared/MHSJXPYHK?:display_count=n&:origin=viz_share_link" target="_blank">View Full Dashboard &#8599;</a>
+      <a class="btn btn-outline" href="https://github.com/yonekeg/E-Commerce-Analysis" target="_blank">GitHub Repo &#8599;</a>
+    </div>
+  </section>
+
+  <section class="viz-section">
+    <div class="viz-card">
+      <div class="viz-header">
+        <span class="viz-title">Interactive Dashboard</span>
+        <a class="viz-link" href="https://public.tableau.com/shared/MHSJXPYHK?:display_count=n&:origin=viz_share_link" target="_blank">Open in Tableau &#8599;</a>
+      </div>
+      <div class="tableau-container">
+        <div class='tableauPlaceholder' id='viz1779157606329' style='position: relative'>
+          <noscript>
+            <a href='#'>
+              <img alt='Story' src='https://public.tableau.com/static/images/MH/MHSJXPYHK/1_rss.png' style='border: none' />
+            </a>
+          </noscript>
+          <object class='tableauViz' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='path' value='shared&#47;MHSJXPYHK' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image' value='https://public.tableau.com/static/images/MH/MHSJXPYHK/1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+            <param name='language' value='en-US' />
+          </object>
+        </div>
+        <script type='text/javascript'>
+          var divElement = document.getElementById('viz1779157606329');
+          var vizElement = divElement.getElementsByTagName('object')[0];
+          vizElement.style.width = '100%';
+          vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+          var scriptElement = document.createElement('script');
+          scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <section class="highlights">
+    <div class="highlight-card">
+      <div class="highlight-icon">📦</div>
+      <h3>Product Performance</h3>
+      <p>Identified top-selling products and seasonal demand patterns across UK retail categories.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-icon">🌍</div>
+      <h3>Geographic Insights</h3>
+      <p>Mapped revenue distribution across countries to uncover international sales opportunities.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-icon">📈</div>
+      <h3>Revenue Trends</h3>
+      <p>Analyzed monthly revenue fluctuations and identified peak sales periods.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-icon">👥</div>
+      <h3>Customer Behavior</h3>
+      <p>Segmented customers by purchase frequency and value to guide retention strategies.</p>
+    </div>
+  </section>
+
+  <footer>
+    Built by <a href="https://yonekeg.github.io">Yoneke Graham</a> &nbsp;·&nbsp;
+    <a href="https://github.com/yonekeg/E-Commerce-Analysis">View on GitHub</a>
+  </footer>
+
+</body>
+</html>
